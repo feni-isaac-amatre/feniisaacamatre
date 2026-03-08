@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Poetry World</title>
+
+<link rel="stylesheet" href="poem.css">
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+
+<div class="nav-container">
+
+<div class="logo">My Poetry</div>
+
+        <nav class="nav-menu" id="navMenu">
+            <a href="index.html">CV</a>
+            <a href="poem.html">Poems</a>
+            <a href="#projects">Games</a>
+            <a href="#tools">Tutorials</a>
+            <a href="#contact">Songs</a>
+        </nav>
+
+<div class="hamburger" onclick="toggleMenu()">☰</div>
+
+</div>
+
+</header>
+
+
+<div class="main-wrapper">
+
+<!-- LEFT IMAGE SECTION -->
+
+
+</div>
+
+
+<!-- RIGHT CONTENT -->
+
+<div class="right-section">
+
+<div class="content-wrapper">
+
+
+<!-- POEMS -->
+
+<section id="poems" class="section-card">
+
+<h2>Latest Poems</h2>
+
+<div class="project-container">
+
+
+<div class="project-card">
+
+<h3>Moonlight</h3>
+
+<p>
+The moon whispers softly  
+to the quiet night  
+while my thoughts  
+wander through silver light.
+</p>
+
+<div class="project-buttons">
+
+<button class="project-btn" onclick="like(this)">❤️ <span>0</span></button>
+
+</div>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Hope</h3>
+
+<p>
+Even the darkest sky  
+cannot hide the dawn  
+for light returns  
+when night is gone.
+</p>
+
+<div class="project-buttons">
+
+<button class="project-btn" onclick="like(this)">❤️ <span>0</span></button>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- SUBMIT POEM -->
+
+<section id="submit" class="section-card">
+
+<h2>Submit Your Poem</h2>
+
+<form action="https://formspree.io/f/mvzwglvv" method="POST">
+
+<input type="text" name="name" placeholder="Your Name" required>
+
+<input type="text" name="title" placeholder="Poem Title" required>
+
+<textarea name="poem" placeholder="Write your poem..." required></textarea>
+
+<button type="submit" class="btn">Submit Poem</button>
+
+</form>
+
+<form id="likeForm" action="https://formspree.io/f/mvzwglvv" method="POST" style="display:none;">
+  <input type="text" name="poem" id="likedPoem" value="">
+</form>
+
+</section>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+<div class="footer-container">
+
+<p>© 2026 My Poetry World</p>
+
+</div>
+
+</footer>
+
+
+<script>
+
+function toggleMenu(){
+
+document.querySelector(".nav-menu").classList.toggle("active")
+
+}
+
+function like(btn){
+    // Get the poem title
+    let poem = btn.closest(".project-card").querySelector("h3").innerText;
+
+    // Prevent multiple likes per person
+    let key = "liked_" + poem;
+    if(localStorage.getItem(key)){
+        alert("You already liked this poem ❤️");
+        return;
+    }
+
+    // Update visible like counter
+    let span = btn.querySelector("span");
+    span.textContent = Number(span.textContent) + 1;
+
+    // Disable button visually
+    btn.style.opacity = "0.6";
+    btn.style.cursor = "not-allowed";
+
+    // Store that this person liked this poem
+    localStorage.setItem(key,true);
+
+    // Send notification via Formspree
+    document.getElementById("likedPoem").value = poem;
+    document.getElementById("likeForm").submit();
+}
+
+</script>
+
+</body>
+</html>
